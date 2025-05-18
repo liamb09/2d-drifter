@@ -18,7 +18,7 @@ int main () {
 
     const int WIDTH = 1600;
     const int HEIGHT = 900;
-    const float SCALE = 15;
+    const float SCALE = 20;
 
     // Create SDL Window
     window = SDL_CreateWindow(
@@ -45,7 +45,7 @@ int main () {
     }
 
     // Initialize car
-    Car car(WIDTH/2, HEIGHT/2, SCALE, {18, 102, 241, 255});
+    Car car(WIDTH/2, HEIGHT/2, SCALE, {234, 67, 53, 255});
 
     Uint64 startTime;
     float dt;

@@ -11,13 +11,13 @@ class Car {
     float ACC, TURN_SPEED, FRICTION;
     float WIDTH, LENGTH, WHEEL_BASE, TIRE_WIDTH, TIRE_ANGLE_MAX, STEERING_WHEEL_MAX, STEERING_WHEEL_RETURN;
     float SCALE;
-    SDL_Color BODY_COLOR;
+    SDL_Color BODY_COLOR, SECONDARY_COLOR;
     SDL_FPoint centerOfRotation;
 
 public:
     Car (const float &initSCALE);
     Car (float initX, float initY, const float &initSCALE, const SDL_Color initBODY_COLOR);
-    Car (float initX, float initY, float initACC, float initTURN_SPEED, float initFRICTION, float initLENGTH, float initWIDTH, float initWHEEL_BASE, float initTIRE_WIDTH, float initTIRE_ANGLE_MAX, float initSTEERING_WHEEL_MAX, float initSTEERING_WHEEL_RETURN, const float &initSCALE, const SDL_Color initBODY_COLOR);
+    Car (float initX, float initY, float initACC, float initTURN_SPEED, float initFRICTION, float initLENGTH, float initWIDTH, float initWHEEL_BASE, float initTIRE_WIDTH, float initTIRE_ANGLE_MAX, float initSTEERING_WHEEL_MAX, float initSTEERING_WHEEL_RETURN, const float &initSCALE, const SDL_Color initBODY_COLOR, const SDL_Color initSECONDARY_COLOR);
 
     float getX ();
     float getY ();
