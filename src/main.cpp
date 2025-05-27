@@ -1,12 +1,14 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "car.hpp"
+#include "../include/car.hpp"
+#include "../include/map.hpp"
+#include "../include/line.hpp"
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 #include <SDL3/SDL_render.h>
 
-// g++ main.cpp -std=c++11 `pkg-config --libs --cflags sdl3`; ./a.out
+// g++ src/main.cpp src/car.cpp src/map.cpp -std=c++11 `pkg-config --libs --cflags sdl3`; ./a.out
 
 using namespace std;
 
@@ -44,6 +46,16 @@ int main () {
         return 1;
     }
 
+    // Initialize map
+    TerrainMap map;
+    map.addTriangleVertices({{0, 0}, {WIDTH, 0}, {0, HEIGHT}});
+    map.addTriangleVertices({{WIDTH, HEIGHT}, {WIDTH, 0}, {0, HEIGHT}}, {250, 213, 165});
+    map.addQuadVertices({{200, 200}, {WIDTH-200, 200}, {WIDTH-200, HEIGHT-200}, {200, HEIGHT-200}}, {95, 95, 95});
+    map.addQuadOpposites({{500, 300}, {1000, 600}});
+    map.addFence({{200, 200}, {0, 200}});
+    map.addFence({{200, 200}, {500, 300}});
+    map.addFence({{500, 300}, {1000, 600}});
+
     // Initialize car
     Car car(WIDTH/2, HEIGHT/2, SCALE, {234, 67, 53, 255});
 
@@ -53,6 +65,9 @@ int main () {
     int i = 0;
     bool inputs[4] = {false}; // up down left right
     SDL_FPoint centerOfRotation;
+    vector<vector<SDL_Vertex>> carVertices;
+    vector<vector<SDL_Vertex>> mapVertices;
+    vector<Line> mapLines;
 
     while (!done) {
         startTime = SDL_GetTicks();
@@ -128,14 +143,25 @@ int main () {
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderClear(renderer);
 
+        // Draw map
+        mapVertices = map.getVertices();
+        for (const vector<SDL_Vertex> &v : mapVertices) {
+            SDL_RenderGeometry(renderer, nullptr, v.data(), 3, nullptr, 0);
+        }
+        mapLines = map.getLines();
+        for (const Line &line : mapLines) {
+            SDL_SetRenderDrawColor(renderer, line.color.r, line.color.g, line.color.b, line.color.a);
+            SDL_RenderLine(renderer, line.p1.x, line.p1.y, line.p2.x, line.p2.y);
+        }
+
         // Draw car
-        vector<vector<SDL_Vertex>> vertices = car.getVertices();
-        for (const vector<SDL_Vertex> &v : vertices) {
+        carVertices = car.getVertices();
+        for (const vector<SDL_Vertex> &v : carVertices) {
             SDL_RenderGeometry(renderer, nullptr, v.data(), 3, nullptr, 0);
         }
         // Draw center of rotation
         centerOfRotation = car.getCenterOfRotation();
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
         SDL_RenderLine(renderer, centerOfRotation.x-10, centerOfRotation.y, centerOfRotation.x+10, centerOfRotation.y);
         SDL_RenderLine(renderer, centerOfRotation.x, centerOfRotation.y-10, centerOfRotation.x, centerOfRotation.y+10);
 

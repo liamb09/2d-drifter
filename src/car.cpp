@@ -2,15 +2,15 @@
 #include <string>
 #include <vector>
 #include <cmath>
-#include "car.hpp"
+#include "../include/car.hpp"
 #include "SDL3/SDL.h"
 
 // TODO: make steering much less sensitive so normal turns are easier
 
 using namespace std;
 
-Car::Car (const float &initSCALE) : SCALE(initSCALE), x(0), y(0), vx(0), vy(0), st_angle(0), ACC(0.05), theta(0), TURN_SPEED(0.01), FRICTION(0.95), LENGTH(4.21*initSCALE), WIDTH(1.6*initSCALE), WHEEL_BASE(2.83*initSCALE), TIRE_WIDTH(0.6*initSCALE), TIRE_ANGLE_MAX(0), STEERING_WHEEL_MAX(3*M_PI), STEERING_WHEEL_RETURN(0.999), BODY_COLOR({234, 67, 53, 255}), SECONDARY_COLOR({66, 133, 244, 255}) {}
-Car::Car (float initX, float initY, const float &initSCALE, const SDL_Color initBODY_COLOR) : SCALE(initSCALE), x(initX), y(initY), vx(0), vy(0), ACC(0.05), st_angle(0), theta(0), TURN_SPEED(0.01), FRICTION(0.95), LENGTH(4.21*initSCALE), WIDTH(1.6*initSCALE), WHEEL_BASE(2.83*initSCALE), TIRE_WIDTH(0.6*initSCALE), TIRE_ANGLE_MAX(0), STEERING_WHEEL_MAX(3*M_PI), STEERING_WHEEL_RETURN(0.999), BODY_COLOR(initBODY_COLOR), SECONDARY_COLOR({66, 133, 244, 255}) {}
+Car::Car (const float &initSCALE) : SCALE(initSCALE), x(0), y(0), vx(0), vy(0), st_angle(0), ACC(0.01), theta(0), TURN_SPEED(0.01), FRICTION(0.99), LENGTH(4.21*initSCALE), WIDTH(1.6*initSCALE), WHEEL_BASE(2.83*initSCALE), TIRE_WIDTH(0.6*initSCALE), TIRE_ANGLE_MAX(0), STEERING_WHEEL_MAX(3*M_PI), STEERING_WHEEL_RETURN(0.95), BODY_COLOR({234, 67, 53, 255}), SECONDARY_COLOR({66, 133, 244, 255}) {}
+Car::Car (float initX, float initY, const float &initSCALE, const SDL_Color initBODY_COLOR) : SCALE(initSCALE), x(initX), y(initY), vx(0), vy(0), ACC(0.01), st_angle(0), theta(0), TURN_SPEED(0.01), FRICTION(0.99), LENGTH(4.21*initSCALE), WIDTH(1.6*initSCALE), WHEEL_BASE(2.83*initSCALE), TIRE_WIDTH(0.6*initSCALE), TIRE_ANGLE_MAX(0), STEERING_WHEEL_MAX(3*M_PI), STEERING_WHEEL_RETURN(0.95), BODY_COLOR(initBODY_COLOR), SECONDARY_COLOR({66, 133, 244, 255}) {}
 Car::Car (float initX, float initY, float initACC, float initTURN_SPEED, float initFRICTION, float initLENGTH, float initWIDTH, float initWHEEL_BASE, float initTIRE_WIDTH, float initTIRE_ANGLE_MAX, float initSTEERING_WHEEL_MAX, float initSTEERING_WHEEL_RETURN, const float &initSCALE, const SDL_Color initBODY_COLOR, const SDL_Color initSECONDARY_COLOR) : SCALE(initSCALE), x(initX), y(initY), vx(0), vy(0), ACC(initACC), st_angle(0), theta(0), TURN_SPEED(initTURN_SPEED), FRICTION(initFRICTION), WIDTH(initWIDTH*initSCALE), LENGTH(initLENGTH*initSCALE), WHEEL_BASE(initWHEEL_BASE*initSCALE), TIRE_WIDTH(initTIRE_WIDTH*initSCALE), TIRE_ANGLE_MAX(initTIRE_ANGLE_MAX), STEERING_WHEEL_MAX(initSTEERING_WHEEL_MAX), STEERING_WHEEL_RETURN(initSTEERING_WHEEL_RETURN), BODY_COLOR(initBODY_COLOR), SECONDARY_COLOR(initSECONDARY_COLOR) {}
 
 float Car::getX () {
